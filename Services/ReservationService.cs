@@ -11,7 +11,7 @@ namespace CourtBookingApp.Services
         {
             _context = context;
         }
-        public async Task<Reservation> CreateAsync(Reservation reservation)
+        public async Task<Reservation> CreateReservationAsync(Reservation reservation)
         {
             _context.Reservations.Add(reservation);
             await _context.SaveChangesAsync();

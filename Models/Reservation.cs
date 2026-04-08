@@ -17,7 +17,7 @@ namespace CourtBookingApp.Models
         }
         public DateTime CreatedAt { get; set; }
 
-        public User User { get; set; }
-        public Court Court { get; set; }
+        public User? User { get; set; }
+        public Court? Court { get; set; }
     }
 }
