@@ -1,4 +1,5 @@
 using CourtBookingApp.Data;
+using CourtBookingApp.Models;
 using CourtBookingApp.Services;
 using Microsoft.EntityFrameworkCore;
 
