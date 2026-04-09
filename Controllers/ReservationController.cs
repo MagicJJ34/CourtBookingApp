@@ -7,11 +7,11 @@ namespace CourtBookingApp.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class ReservationsController : ControllerBase
+    public class ReservationController : ControllerBase
     {
         private readonly IReservationService _service;
 
-        public ReservationsController(IReservationService service)
+        public ReservationController(IReservationService service)
 
         {
             _service = service;
