@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-
 namespace CourtBookingApp.Models
 {
     public class Reservation
