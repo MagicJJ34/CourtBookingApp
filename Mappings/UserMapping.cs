@@ -1,9 +1,10 @@
 ﻿using CourtBookingApp.Models;
 using CourtBookingApp.DTO_s.User;
+using CourtBookingApp.DTOs.User;
 
 public static class UserMapping
 {
-    public static UserDto ToDto(this User user)
+    public static UserDto ToDto(this Users user)
     {
         return new UserDto
         {
@@ -15,9 +16,9 @@ public static class UserMapping
         };
     }
 
-    public static User ToEntity(this CreateUserDto dto)
+    public static Users ToEntity(this CreateUserDto dto)
     {
-        return new User
+        return new Users
         {
             Name = dto.Name,
             Email = dto.Email,

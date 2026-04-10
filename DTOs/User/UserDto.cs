@@ -1,4 +1,4 @@
-﻿namespace CourtBookingApp.DTO_s.User
+﻿namespace CourtBookingApp.DTOs.User
 {
     public class UserDto
     {

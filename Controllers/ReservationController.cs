@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace CourtBookingApp.Controllers
 {
     [ApiController]
-    [Route("api/reservations")]
+    [Route("api/[controller]")]
     public class ReservationController : ControllerBase
     {
         private readonly IReservationService _reservationService;

@@ -11,7 +11,7 @@ namespace CourtBookingApp.Data
         }
 
         public DbSet<Reservation> Reservations { get; set; }
-        public DbSet<User> Users { get; set; }
+        public DbSet<Users> Users { get; set; }
         public DbSet<Court> Courts { get; set; }
     }
 }

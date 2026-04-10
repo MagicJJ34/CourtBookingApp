@@ -5,7 +5,7 @@ namespace CourtBookingApp.Models
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public User? User { get; set; }
+        public Users? User { get; set; }
         public int CourtId { get; set; }
         public Court? Court { get; set; }
         public DateTime StartTime { get; set; }
