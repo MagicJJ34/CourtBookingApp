@@ -24,15 +24,7 @@ namespace CourtBookingApp.Controllers
         [HttpPost]
         public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto dto)
         {
-            var user = new Users
-            {
-                Name = dto.Name,
-                Email = dto.Email,
-                PhoneNumber = dto.PhoneNumber,
-                Role = "User"
-            };
-
-            var createdUser = await _userservice.CreateUserAsync(user);
+            var createdUser = await _userservice.CreateUserAsync(dto);
 
             var result = new UserDto
             {
@@ -46,9 +38,16 @@ namespace CourtBookingApp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Users>> Update(int id, Users updatedUser)
+        public async Task<ActionResult<UserDto>> Update(int id, UpdateUserDto dto)
         {
-            var user = await _userservice.UpdateAsync(id, updatedUser);
+            var user = await _userservice.UpdateAsync(id, dto);
+            var result = new UserDto
+            {
+                Id = user.Id,
+                Name = user.Name,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+            };
             return Ok(user);
         }
 

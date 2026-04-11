@@ -2,6 +2,7 @@
 using CourtBookingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using CourtBookingApp.Services.User;
+using CourtBookingApp.DTO_s.User;
 
 namespace CourtBookingApp.Services.User;
 
@@ -14,8 +15,16 @@ public class UserService : IUserService
         _context = context;
     }
 
-    public async Task<Users>CreateUserAsync(Users user)
+    public async Task<Users>CreateUserAsync(CreateUserDto dto)
     {
+        var user = new Users
+        {
+            Name = dto.Name,
+            Email = dto.Email,
+            PhoneNumber = dto.PhoneNumber,
+            Role = "User"
+        };
+
         _context.Users.Add(user);
         await _context.SaveChangesAsync();
         return user;
@@ -27,13 +36,13 @@ public class UserService : IUserService
         return data;
     }
 
-    public async Task<Users>UpdateAsync(int id, Users updatedUser)
+    public async Task<Users>UpdateAsync(int id, UpdateUserDto dto)
     {
         var user = await _context.Users.FindAsync(id);
 
-        user.Name = updatedUser.Name;
-        user.Email = updatedUser.Email;
-        user.PhoneNumber = updatedUser.PhoneNumber;
+        user.Name = dto.Name;
+        user.Email = dto.Email;
+        user.PhoneNumber = dto.PhoneNumber;
 
         await _context.SaveChangesAsync();
         return user;
