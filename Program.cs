@@ -1,6 +1,7 @@
 using CourtBookingApp.Data;
 using CourtBookingApp.Models;
 using CourtBookingApp.Services;
+using CourtBookingApp.Services.Courts;
 using CourtBookingApp.Services.User;
 using Microsoft.EntityFrameworkCore;
 
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICourtService, CourtServices>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 

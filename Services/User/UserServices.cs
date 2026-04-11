@@ -1,7 +1,6 @@
 ﻿using CourtBookingApp.Models;
 using CourtBookingApp.Data;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc;
 using CourtBookingApp.Services.User;
 
 namespace CourtBookingApp.Services.User;

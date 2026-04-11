@@ -42,7 +42,7 @@ namespace CourtBookingApp.Controllers
                 PhoneNumber = createdUser.PhoneNumber,
                 Role = "User"
             };
-            return CreatedAtAction("GetById", new { id = createdUser.Id }, result);
+            return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, result);
         }
 
         [HttpPut]
@@ -59,7 +59,7 @@ namespace CourtBookingApp.Controllers
             return Ok(users);
         }
 
-        [HttpGet("{id}", Name ="GetUser")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<Users>> GetById(int id)
         {
             var user = await _userservice.GetByIdAsync(id);
