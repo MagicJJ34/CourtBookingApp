@@ -1,4 +1,5 @@
-﻿using CourtBookingApp.Models;
+﻿using CourtBookingApp.DTOs.Reservation;
+using CourtBookingApp.Models;
 using CourtBookingApp.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,10 +18,10 @@ namespace CourtBookingApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Reservation>> CreateReservation([FromBody]Reservation reservation)
+        public async Task<ActionResult> Create(CreateReservationDto dto)
         {
-            var createdReservation = await _reservationService.CreateReservationAsync(reservation);
-            return CreatedAtAction(nameof(CreateReservation), new { createdReservation.Id }, createdReservation);
+            var createdReservation = await _reservationService.CreateAsync(dto);
+            return Ok(createdReservation);
         }
 
         [HttpGet]
