@@ -4,7 +4,7 @@
     {
         public string? Name { get; set; }
         public string? Type { get; set; }
-        public bool? HasRoof { get; set; }
-        public int? PricePerHour { get; set; }
+        public bool HasRoof { get; set; }
+        public int PricePerHour { get; set; }
     }
 }

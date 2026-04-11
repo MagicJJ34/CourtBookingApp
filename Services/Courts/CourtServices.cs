@@ -2,6 +2,7 @@
 using CourtBookingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using CourtBookingApp.Services.Courts;
+using CourtBookingApp.DTO_s.Court;
 
 namespace CourtBookingApp.Services.Courts;
 
@@ -14,20 +15,28 @@ public class CourtServices : ICourtService
     {
         _context = context;
     }
-    public async Task<Court> CreateCourtAsync(Court court)
+    public async Task<Court> CreateCourtAsync(CreateCourtDto dto)
     {
+        var court = new Court
+        {
+            Name = dto.Name,
+            Type = dto.Type,
+            HasRoof = dto.HasRoof,
+            PricePerHour = dto.PricePerHour,
+        };
+
         _context.Courts.Add(court);
         await _context.SaveChangesAsync();
         return court;
     }
-    public async Task<Court> UpdateAsync(int id, Court updatedCourt)
+    public async Task<Court> UpdateAsync(int id, UpdateCourtDto dto)
     {
         var court = await _context.Courts.FindAsync(id);
-
-        court.Name = updatedCourt.Name;
-        court.Type = updatedCourt.Type;
-        court.HasRoof = updatedCourt.HasRoof;
-        court.PricePerHour = updatedCourt.PricePerHour;
+        
+        court.Name = dto.Name;
+        court.Type = dto.Type;
+        court.HasRoof = dto.HasRoof;
+        court.PricePerHour = dto.PricePerHour;
 
         await _context.SaveChangesAsync();
         return court;

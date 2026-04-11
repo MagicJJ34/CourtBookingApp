@@ -20,16 +20,9 @@ namespace CourtBookingApp.Controllers
 
         [HttpPost]
 
-        public async Task<ActionResult<CourtDto>> CreateCourt(CreateCourtDto createCourtDto)
+        public async Task<ActionResult<CourtDto>> CreateCourt(CreateCourtDto dto)
         {
-            var court = new Court
-            {
-                Name = createCourtDto.Name,
-                Type = createCourtDto.Type,
-                HasRoof = createCourtDto.HasRoof,
-                PricePerHour = createCourtDto.PricePerHour,
-            };
-             var createdCourt = await _courtService.CreateCourtAsync(court);
+            var createdCourt = await _courtService.CreateCourtAsync(dto);
 
             var result = new CourtDto
             {
@@ -44,10 +37,19 @@ namespace CourtBookingApp.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult<Court>> Update(int id, Court updatedCourt)
+        public async Task<ActionResult<CourtDto>> Update(int id, UpdateCourtDto dto)
         {
-            var court = await _courtService.UpdateAsync(id, updatedCourt);
-            return Ok(court);
+            var court = await _courtService.UpdateAsync(id, dto);
+
+            var result = new CourtDto
+            {
+                Id = court.Id,
+                Name = court.Name,
+                Type = court.Type,
+                HasRoof = court.HasRoof,
+                PricePerHour = court.PricePerHour
+            };
+            return Ok(result);
         }
 
         [HttpGet]
