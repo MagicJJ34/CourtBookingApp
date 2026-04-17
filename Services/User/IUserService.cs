@@ -9,7 +9,7 @@ namespace CourtBookingApp.Services;
     {
         Task<Users> CreateUserAsync(CreateUserDto dto);
         Task<IEnumerable<UserDto>> GetAllAsync();
-        Task<Users> UpdateAsync(int id, UpdateUserDto dto);
+        Task<UserDto> UpdateAsync(int id, UpdateUserDto dto);
         Task<UserDto> GetByIdAsync(int id);
         Task<bool> DeleteAsync(int id);
     }

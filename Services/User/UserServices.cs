@@ -45,13 +45,18 @@ public class UserService : IUserService
         return data;
     }
 
-    public async Task<Users>UpdateAsync(int id, UpdateUserDto dto)
+    public async Task<UserDto>UpdateAsync(int id, UpdateUserDto dto)
     {
-        var user = await _context.Users.FindAsync(id);
-
-        user.Name = dto.Name;
-        user.Email = dto.Email;
-        user.PhoneNumber = dto.PhoneNumber;
+        var user = await _context.Users.
+            Where(u => u.Id == id)
+            .Select(u => new UserDto
+            {
+                Id = u.Id,
+                Name = dto.Name,
+                Email = dto.Email,
+                PhoneNumber = dto.PhoneNumber,
+                Role = u.Role
+            }).FirstOrDefaultAsync();
 
         await _context.SaveChangesAsync();
         return user;
