@@ -42,15 +42,29 @@ public class CourtServices : ICourtService
         return court;
     }
     
-    public async Task<IEnumerable<Court>>GetAllAsync()
+    public async Task<IEnumerable<CourtDto>>GetAllAsync()
     {
-        var data = await _context.Courts.ToListAsync();
+        var data = await _context.Courts.Select(c => new CourtDto
+        {
+            Name = c.Name,
+            Type = c.Type,
+            HasRoof = c.HasRoof,
+            PricePerHour = c.PricePerHour,
+        }).ToListAsync();
         return data;
     }
 
-    public async Task<Court> GetByIdAsync(int id)
+    public async Task<CourtDto> GetByIdAsync(int id)
     {
-        var court = await _context.Courts.FindAsync(id);
+        var court = await _context.Courts.
+            Where(c => c.Id == id)
+            .Select(c => new CourtDto
+            {
+                Name = c.Name,
+                Type = c.Type,
+                HasRoof = c.HasRoof,
+                PricePerHour = c.PricePerHour,
+            }).FirstOrDefaultAsync();
         return court;
     }
     public async Task<bool> DeleteAsync(int id)

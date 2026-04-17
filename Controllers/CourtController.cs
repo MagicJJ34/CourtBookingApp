@@ -36,7 +36,7 @@ namespace CourtBookingApp.Controllers
             return CreatedAtAction("GetById", new { id = createdCourt.Id }, result);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult<CourtDto>> Update(int id, UpdateCourtDto dto)
         {
             var court = await _courtService.UpdateAsync(id, dto);

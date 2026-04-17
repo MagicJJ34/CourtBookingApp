@@ -9,9 +9,9 @@ namespace CourtBookingApp.Services.Courts
     public interface ICourtService
     {
         Task<Court> CreateCourtAsync(CreateCourtDto dto);
-        Task<IEnumerable<Court>> GetAllAsync();
+        Task<IEnumerable<CourtDto>> GetAllAsync();
         Task<Court> UpdateAsync(int id, UpdateCourtDto dto);
-        Task<Court> GetByIdAsync(int id);
+        Task<CourtDto> GetByIdAsync(int id);
         Task<bool> DeleteAsync(int id);
     }
 }
