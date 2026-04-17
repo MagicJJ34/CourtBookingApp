@@ -3,6 +3,7 @@ using CourtBookingApp.Data;
 using Microsoft.EntityFrameworkCore;
 using CourtBookingApp.Services.User;
 using CourtBookingApp.DTO_s.User;
+using CourtBookingApp.DTOs.User;
 
 namespace CourtBookingApp.Services.User;
 
@@ -30,9 +31,17 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<IEnumerable<Users>>GetAllAsync()
+    public async Task<IEnumerable<UserDto>>GetAllAsync()
     {
-        var data = await _context.Users.ToListAsync();
+        var data = await _context.Users.Select(u => new UserDto
+        {
+            Id = u.Id,
+            Name = u.Name,
+            Email = u.Email,
+            PhoneNumber = u.PhoneNumber,
+            Role = u.Role
+        }).ToListAsync();
+
         return data;
     }
 
@@ -48,9 +57,20 @@ public class UserService : IUserService
         return user;
     }
 
-    public async Task<Users>GetByIdAsync(int id)
+    public async Task<UserDto>GetByIdAsync(int id)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user = await _context.Users
+            .Where(u => u.Id == id)
+            .Select(u => new UserDto
+            {
+                Id = u.Id,
+                Name = u.Name,
+                Email = u.Email,
+                PhoneNumber = u.PhoneNumber,
+                Role = u.Role
+            })
+            .FirstOrDefaultAsync();
+
         return user;
     }
 
