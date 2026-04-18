@@ -1,9 +1,11 @@
+using System.Text.Json.Serialization;
 using CourtBookingApp.Data;
 using CourtBookingApp.Models;
 using CourtBookingApp.Services;
 using CourtBookingApp.Services.Courts;
 using CourtBookingApp.Services.User;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +16,12 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICourtService, CourtServices>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(
+            new JsonStringEnumConverter());
+    });
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=courtbooking.db"));
 

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourtBookingApp.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260408083310_InitialCreate")]
+    [Migration("20260418054803_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -63,6 +63,9 @@ namespace CourtBookingApp.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
                     b.Property<int>("UserId")
                         .HasColumnType("INTEGER");
 
@@ -75,7 +78,7 @@ namespace CourtBookingApp.Migrations
                     b.ToTable("Reservations");
                 });
 
-            modelBuilder.Entity("CourtBookingApp.Models.User", b =>
+            modelBuilder.Entity("CourtBookingApp.Models.Users", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -113,7 +116,7 @@ namespace CourtBookingApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CourtBookingApp.Models.User", "User")
+                    b.HasOne("CourtBookingApp.Models.Users", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -129,7 +132,7 @@ namespace CourtBookingApp.Migrations
                     b.Navigation("Reservations");
                 });
 
-            modelBuilder.Entity("CourtBookingApp.Models.User", b =>
+            modelBuilder.Entity("CourtBookingApp.Models.Users", b =>
                 {
                     b.Navigation("Reservations");
                 });
