@@ -10,12 +10,7 @@ namespace CourtBookingApp.Models
         public Court? Court { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public enum Status 
-        {
-            Active,
-            Cancelled,
-            Completed
-        }
+        public ReservationStatus Status { get; set; } = ReservationStatus.Active;
         public DateTime CreatedAt { get; set; }
     }
 }

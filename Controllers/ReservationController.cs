@@ -21,7 +21,16 @@ namespace CourtBookingApp.Controllers
         public async Task<ActionResult> Create(CreateReservationDto dto)
         {
             var createdReservation = await _reservationService.CreateAsync(dto);
-            return Ok(createdReservation);
+            var result = new ReservationDto
+            {
+                Id = createdReservation.Id,
+                UserId = createdReservation.UserId,
+                CourtId = createdReservation.CourtId,
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
+                Status = createdReservation.Status,
+            };
+            return Ok(result);
         }
 
         [HttpGet]
@@ -29,6 +38,15 @@ namespace CourtBookingApp.Controllers
         public async Task<ActionResult<IEnumerable<Reservation>>> GetAll()
         {
             var reservations = await _reservationService.GetAllAsync();
+            foreach (var r in reservations)
+            {
+                if (r.EndTime < DateTime.Now && r.Status == ReservationStatus.Active)
+                {
+                    {
+                        r.Status = ReservationStatus.Completed;
+                    }
+                }
+            }
             return Ok(reservations);
         }
 
@@ -38,9 +56,15 @@ namespace CourtBookingApp.Controllers
         
         {
             var reservation = await _reservationService.GetByIdAsync(id);
+            
             if (reservation == null) 
                 return NotFound();
 
+            if (reservation.EndTime < DateTime.Now &&
+                reservation.Status == ReservationStatus.Active)
+            {
+                reservation.Status = ReservationStatus.Completed;
+            }
             return Ok(reservation);
         }
 
