@@ -70,11 +70,11 @@ namespace CourtBookingApp.Controllers
             return Ok(result);
         }
         [HttpPatch("{id}")]
-        public async Task<IActionResult> CancelledReservation(int id)
+        public async Task<IActionResult> CancelReservation(int id)
         {
             var reservation = await _reservationService.CancelledReservationAsync(id);
 
-            return Ok(reservation);
+            return NoContent();
         }
         [HttpDelete("{id}")]
 
