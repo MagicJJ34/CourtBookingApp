@@ -55,7 +55,7 @@ namespace CourtBookingApp.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Reservation>> GetById(int id)
+        public async Task<ActionResult<ReservationDto>> GetById(int id)
         {
             var reservation = await _reservationService.GetByIdAsync(id);
             var result = new ReservationDto
