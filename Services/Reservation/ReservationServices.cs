@@ -72,7 +72,20 @@ public class ReservationService : IReservationService
         await _context.SaveChangesAsync();
         return reservation;
     }
+    public async Task<bool> CancelledReservationAsync(int id)
+    {
+        var reservation = await _context.Reservations.FindAsync(id);
 
+        if (reservation.Status == ReservationStatus.Active)
+
+            {
+            reservation.Status = ReservationStatus.Cancelled;
+            await _context.SaveChangesAsync();
+            return true;
+            };
+
+        return false;
+    }
     public async Task<bool> DeleteAsync(int id)
     {
         var reservation = await _context.Reservations.FindAsync(id);

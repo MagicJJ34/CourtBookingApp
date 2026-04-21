@@ -10,4 +10,5 @@ public interface IReservationService
     Task<List<Reservation>> GetAllAsync();
     Task<Reservation?> GetByIdAsync(int id);
     Task<bool> DeleteAsync(int id);
+    Task<bool> CancelledReservationAsync(int id);
 }
