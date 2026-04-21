@@ -45,14 +45,32 @@ public class ReservationService : IReservationService
     }
 
     public async Task<List<Reservation>> GetAllAsync()
-
     {
-        return await _context.Reservations.ToListAsync();
+        var reservations = await _context.Reservations.ToListAsync();
+        foreach (var r in reservations)
+        {
+            if (r.EndTime < DateTime.Now && r.Status == ReservationStatus.Active)
+            {
+                {
+                    r.Status = ReservationStatus.Completed;
+                }
+            }
+        }
+        await _context.SaveChangesAsync();
+        return reservations;
     }
 
     public async Task<Reservation?> GetByIdAsync(int id)
     {
-        return await _context.Reservations.FindAsync(id);
+        var reservation = await _context.Reservations.FindAsync(id);
+
+        if (reservation.EndTime < DateTime.Now &&
+            reservation.Status == ReservationStatus.Active)
+        {
+            reservation.Status = ReservationStatus.Completed;
+        }
+        await _context.SaveChangesAsync();
+        return reservation;
     }
 
     public async Task<bool> DeleteAsync(int id)

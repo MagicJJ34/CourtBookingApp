@@ -26,8 +26,8 @@ namespace CourtBookingApp.Controllers
                 Id = createdReservation.Id,
                 UserId = createdReservation.UserId,
                 CourtId = createdReservation.CourtId,
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now,
+                StartTime = createdReservation.StartTime,
+                EndTime = createdReservation.EndTime,
                 Status = createdReservation.Status,
             };
             return Ok(result);
@@ -35,37 +35,39 @@ namespace CourtBookingApp.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<IEnumerable<Reservation>>> GetAll()
+        public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAll()
         {
             var reservations = await _reservationService.GetAllAsync();
-            foreach (var r in reservations)
+            var reservationDtos = new List<ReservationDto>();
+            foreach (var reservation in reservations)
             {
-                if (r.EndTime < DateTime.Now && r.Status == ReservationStatus.Active)
+                reservationDtos.Add(new ReservationDto
                 {
-                    {
-                        r.Status = ReservationStatus.Completed;
-                    }
-                }
+                    Id = reservation.Id,
+                    UserId = reservation.UserId,
+                    CourtId = reservation.CourtId,
+                    StartTime = reservation.StartTime,
+                    EndTime = reservation.EndTime,
+                    Status = reservation.Status,
+                });
             }
-            return Ok(reservations);
+            return Ok(reservationDtos);
         }
 
         [HttpGet("{id}")]
-
         public async Task<ActionResult<Reservation>> GetById(int id)
-        
         {
             var reservation = await _reservationService.GetByIdAsync(id);
-            
-            if (reservation == null) 
-                return NotFound();
-
-            if (reservation.EndTime < DateTime.Now &&
-                reservation.Status == ReservationStatus.Active)
+            var result = new ReservationDto
             {
-                reservation.Status = ReservationStatus.Completed;
-            }
-            return Ok(reservation);
+                Id = reservation.Id,
+                UserId = reservation.UserId,
+                CourtId = reservation.CourtId,
+                StartTime = reservation.StartTime,
+                EndTime = reservation.EndTime,
+                Status = reservation.Status,
+            };
+            return Ok(result);
         }
 
         [HttpDelete("{id}")]
@@ -76,7 +78,7 @@ namespace CourtBookingApp.Controllers
             if (!deleted)
                 return NotFound();
 
-            return NoContent();
+            return Ok(deleted);
         }
 
     }
