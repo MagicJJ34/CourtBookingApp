@@ -6,6 +6,7 @@ using CourtBookingApp.Services.Courts;
 using CourtBookingApp.Services.User;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,8 +23,15 @@ builder.Services.AddControllers()
         options.JsonSerializerOptions.Converters.Add(
             new JsonStringEnumConverter());
     });
+
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (!connectionString.Contains("Pooling=false"))
+{
+    connectionString += ";Pooling=false;Trust Server Certificate=true;";
+}
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=courtbooking.db"));
+    options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 

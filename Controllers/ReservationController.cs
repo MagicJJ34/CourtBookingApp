@@ -74,7 +74,7 @@ namespace CourtBookingApp.Controllers
         {
             var reservation = await _reservationService.CancelledReservationAsync(id);
 
-            return NoContent();
+            return Ok(reservation);
         }
         [HttpDelete("{id}")]
 
