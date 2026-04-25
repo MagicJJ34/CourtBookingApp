@@ -46,6 +46,7 @@ public class CourtServices : ICourtService
     {
         var data = await _context.Courts.Select(c => new CourtDto
         {
+            Id = c.Id,
             Name = c.Name,
             Type = c.Type,
             HasRoof = c.HasRoof,
@@ -60,6 +61,7 @@ public class CourtServices : ICourtService
             Where(c => c.Id == id)
             .Select(c => new CourtDto
             {
+                Id = c.Id,
                 Name = c.Name,
                 Type = c.Type,
                 HasRoof = c.HasRoof,
